@@ -175,30 +175,40 @@ void delTail(slist_t *slist)
 
 void delMid(slist_t *slist, int ele)
 {
-    if (slist == NULL || slist->tail == NULL)
+    if (slist == NULL || slist->head == NULL)
     {
         return;
     }
     node_t *cur = slist->head;
+    node_t *prev = NULL;
     if (cur->data == ele)
     {
         delHead(slist);
-    }
-    while (cur->next != NULL && cur->next->data != ele)
-    {
-        cur = cur->next;
-    }
-    if (cur->next == NULL)
-    {
-        printf("Cannot find the element!\n");
-        printf("\n");
         return;
     }
+    while (cur != NULL && cur->data != ele)
+    {
+        prev = cur;
+        cur = cur->next;
+    }
+    if (cur == NULL)
+    {
+        printf("Cannot find the element!\n\n");
+        return;
+    }
+    if (cur == slist->tail)
+    {
+        slist->tail = prev;
+        slist->tail->next = NULL;
+    }
+    else
+    {
+        prev->next = cur->next;
+    }
 
-    node_t *del = cur->next;
-    cur->next = cur->next->next;
-    freeNode(del);
+    free(cur);
 }
+
 
 void freeAllNodeandList(slist_t *slist)
 {
@@ -212,49 +222,82 @@ void freeAllNodeandList(slist_t *slist)
     free(slist);
 }
 
-int main()
-{
+int main() {
     slist_t *newList = makeSlist();
-    // insert 23 at head, output should be '23'
-    printf("%s\n", "add head 23: ");
-    insertHead(newList, 23);
-    printNode(newList->head);
-    // insert 52 at head, output should be '23 -> 52'
-    printf("%s\n", "add tail 52: ");
-    insertTail(newList, 52);
-    printNode(newList->head);
-    printf("%s\n", "add tail 9: ");
-    insertTail(newList, 9);
-    printNode(newList->head);
-    // insert 19 at pos 3, output should be '23 -> 52 -> 19 -> 9'
-    printf("%s\n", "add 19 at position 3: ");
-    insertMid(newList->head, 19, 3);
-    printNode(newList->head);
-    printf("%s\n", "add 7 at head and add 100 at tail: ");
-    insertHead(newList, 7);
-    insertTail(newList, 100);
-    printNode(newList->head);
-    // find the pos of 52, should return 3
-    printf("%s\n", "find positon of 52:");
-    printf("%d\n", searchPos(52, newList->head));
-    printf("\n");
-    // delete head, output should be '23 -> 52 -> 19 -> 9 -> 100'
-    printf("%s\n", "delete head:");
-    delHead(newList);
-    printNode(newList->head);
-    // delete tail, output should be '23 -> 52 -> 19 -> 9'
-    printf("%s\n", "delete tail:");
-    delTail(newList);
-    printNode(newList->head);
-    // delete 12 which doesn't exist, shout be an alert'
-    printf("%s\n", "delete 12:");
-    delMid(newList, 12);
-    printNode(newList->head);
-    // delete 52 which doesn't exist, shout be '23 -> 19 -> 9'
-    printf("%s\n", "delete 52:");
-    delMid(newList, 52);
-    printNode(newList->head);
 
-    freeAllNodeandList(newList);
-    return 0;
+    int choice;
+    int value;
+    int position;
+
+    while (1) {
+        printf("1. Add head\n");
+        printf("2. Add tail\n");
+        printf("3. Add at position\n");
+        printf("4. Delete head\n");
+        printf("5. Delete tail\n");
+        printf("6. Delete of same value\n");
+        printf("7. Search position\n");
+        printf("8. Quit\n");
+        printf("Enter your choice:");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value to add at head: ");
+                scanf("%d", &value);
+                insertHead(newList, value);
+                printNode(newList->head);
+                break;
+
+            case 2:
+                printf("Enter value to add at tail: ");
+                scanf("%d", &value);
+                insertTail(newList, value);
+                printNode(newList->head);
+                break;
+
+            case 3:
+                printf("Enter value to add: ");
+                scanf("%d", &value);
+                printf("Enter position to add at: ");
+                scanf("%d", &position);
+                insertMid(newList->head, value, position);
+                printNode(newList->head);
+                break;
+
+            case 4:
+                delHead(newList);
+                printNode(newList->head);
+                break;
+
+            case 5:
+                delTail(newList);
+                printNode(newList->head);
+                break;
+
+            case 6:
+                printf("Enter value to delete: ");
+                scanf("%d", &value);
+                delMid(newList, value);
+                printNode(newList->head);
+                break;
+
+
+            case 7:
+                printf("Enter value to search position: ");
+                scanf("%d", &value);
+                printf("Position of %d: %d\n", value, searchPos(value, newList->head));
+                break;
+
+            case 8:
+                freeAllNodeandList(newList);
+                return 0;
+
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    }
 }
+
+

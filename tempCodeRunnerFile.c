@@ -1,21 +1,8 @@
-void delMid(slist_t *slist, int ele)
-{
-    if (slist == NULL || slist->tail == NULL)
-    {
-        return;
-    }
-    node_t *cur = slist->head;
-    while (cur->next != NULL && cur->next->data != ele) 
-    {
-        cur = cur->next;
-    }
-    if (cur->next == NULL)
-    {
-        printf("Cannot find the element!\n");
-        return;
-    }
-
-    node_t* del = cur->next;
-    cur->next = cur->next->next;
-    freeNode(del);
-}
+// delete 12 which doesn't exist, shout be an alert'
+    printf("%s\n", "delete 12:");
+    delMid(newList, 12);
+    printNode(newList->head);
+    // delete 52 which doesn't exist, shout be '23 -> 19 -> 9'
+    printf("%s\n", "delete 52:");
+    delMid(newList, 52);
+    printNode(newList->head);
