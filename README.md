@@ -93,3 +93,14 @@ Here, pointer of 9 should point to null.
 4. Print all the elements in the linked list in reverse order.
 Original linked list : 23 <--> 52 <--> 19 <--> 9 <--> 100
 Output - 100, 9, 19, 52, 23
+<img width="200" alt="1" src="https://github.com/CS5008-5009/lab3-ccxxyy23/assets/119594609/4c6c7690-6f28-4996-8ba4-6308ce89c441">
+<img width="179" alt="2" src="https://github.com/CS5008-5009/lab3-ccxxyy23/assets/119594609/ebb45ff1-00a3-4bf2-9d8b-9316be4c33ce">
+<img width="245" alt="3" src="https://github.com/CS5008-5009/lab3-ccxxyy23/assets/119594609/8c956c76-5506-4fd0-8718-3400a2ad4825">
+
+<img width="162" alt="Screenshot 2023-06-14 at 16 19 12" src="https://github.com/CS5008-5009/lab3-ccxxyy23/assets/119594609/bfa2939a-e1d1-47d6-b3ee-45d489fec02d">
+<img width="202" alt="Screenshot 2023-06-14 at 16 19 20" src="https://github.com/CS5008-5009/lab3-ccxxyy23/assets/119594609/6c29ecec-06e7-4dbc-9b5e-4917df9cc7d2">
+
+
+
+
+
