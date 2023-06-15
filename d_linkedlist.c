@@ -25,7 +25,7 @@ node_t *makeNode(int data)
     return newNode;
 }
 
-dlist_t *makeSlist()
+dlist_t *makeDlist()
 {
     dlist_t *newSlist = (dlist_t *)malloc(sizeof(dlist_t));
     if (newSlist == NULL)
@@ -56,6 +56,17 @@ void printNode(node_t *node)
     }
     printf("%d\n", cur->data);
     printf("\n");
+}
+
+void printNodeReverse(node_t *node)
+{
+    node_t* cur = node;
+    while (cur != NULL){
+            printf("%d ", cur->data);
+            cur = cur->pre;
+    }
+    printf("\n");
+
 }
 
 int searchPos(int ele, node_t *cur)
@@ -129,24 +140,31 @@ void insertTail(dlist_t *slist, int element)
 
 void insertMid(node_t *headNode, int element, int pos)
 {
-    if (pos < 2 || headNode == NULL)
-    {
+    if (pos < 1 || headNode == NULL){
         return;
     }
     node_t *cur = headNode;
-    for (int i = 1; i < (pos - 1); i++)
-    {
-        if (cur == NULL)
-        {
-            return;
-        }
+    node_t *newNode = makeNode(element);
+    if (pos == 1){
+        newNode->next = headNode;
+        headNode->pre = newNode;
+        headNode = newNode;
+        return;
+    }
+    for (int i = 1; i < pos && cur != NULL; i++){
         cur = cur->next;
     }
-    node_t *newNode = makeNode(element);
-    newNode->next = cur->next;
-    newNode->pre = cur;
-    cur->next = newNode;
+    if (cur == NULL){
+        printf("Invalid position!\n");
+        return;
+    }
+
+    newNode->next = cur;
+    newNode->pre = cur->pre;
+    cur->pre->next = newNode;
+    cur->pre = newNode;
 }
+
 
 void delHead(dlist_t *slist)
 {
@@ -218,7 +236,7 @@ void freeAllNodeandList(dlist_t *slist)
 }
 
 int main() {
-    dlist_t *newList = makeSlist();
+    dlist_t *newList = makeDlist();
 
     int choice;
     int value;
@@ -232,7 +250,8 @@ int main() {
         printf("5. Delete tail\n");
         printf("6. Delete of same value\n");
         printf("7. Search position\n");
-        printf("8. Quit\n");
+        printf("8. Print reversed linkedlist\n");
+        printf("9. Quit\n");
         printf("Enter your choice:");
         scanf("%d", &choice);
 
@@ -285,8 +304,14 @@ int main() {
                 break;
 
             case 8:
+                printf("Print linkedlist element in the reversed oder:\n");
+                printNodeReverse(newList->tail);
+                break;
+
+            case 9:
                 freeAllNodeandList(newList);
                 return 0;
+            
 
             default:
                 printf("Invalid choice. Please try again.\n");
