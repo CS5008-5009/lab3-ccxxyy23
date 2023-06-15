@@ -146,9 +146,8 @@ void insertMid(node_t *headNode, int element, int pos)
     node_t *cur = headNode;
     node_t *newNode = makeNode(element);
     if (pos == 1){
-        newNode->next = headNode;
-        headNode->pre = newNode;
-        headNode = newNode;
+        newNode->next = cur;
+        cur->pre = newNode;
         return;
     }
     for (int i = 1; i < pos && cur != NULL; i++){
